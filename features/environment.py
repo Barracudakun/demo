@@ -13,15 +13,15 @@ def browser_init(context, test_name):
     :param context: Behave context
     :param test_name: scenario.name
     """
-    #context.driver = webdriver.Chrome()
+    # context.driver = webdriver.Chrome()
     # context.browser = webdriver.Safari()
-    #context.driver = webdriver.Chrome(executable_path=r'../chromedriver.exe')
+    # context.driver = webdriver.Chrome(executable_path=r'../chromedriver.exe')
     context.driver = webdriver.Chrome(executable_path='C:\\Users\\omar\\jobeasyinternship\\chromedriver.exe')
 
     # HEADLESS MODE ####
-    # options = webdriver.ChromeOptions()
-    # options.add_argument('--headless')
-    # context.driver = webdriver.Chrome(chrome_options=options)
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    context.driver = webdriver.Chrome(chrome_options=options)
 
     # EventFiringWebDriver - log file ###
     # for drivers ###
