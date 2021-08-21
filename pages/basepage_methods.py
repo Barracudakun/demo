@@ -2,6 +2,8 @@ from time import sleep
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
+import logging
 
 
 class Pages:
