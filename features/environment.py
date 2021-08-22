@@ -1,7 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
 from app.application import Applications
-
+from selenium.webdriver.chrome.options import Options
 # from selenium import logger, MyListener
 # Register for BrowserStack, then grab it from https://www.browserstack.com/accounts/settings
 
@@ -19,7 +19,7 @@ def browser_init(context, test_name):
     # context.browser = webdriver.Safari()
     # context.driver = webdriver.Chrome(executable_path=r'../chromedriver.exe')
     # context.driver = webdriver.Chrome(executable_path=r'/usr/local/bin/chromedriver')
-    context.driver = webdriver.Chrome(executable_path='C:\\Users\\omar\\jobeasyinternship\\chromedriver.exe')
+    # context.driver = webdriver.Chrome(executable_path='C:\\Users\\omar\\jobeasyinternship\\chromedriver.exe')
     # context.driver = webdriver.Chrome(executable_path='/chromedriver.exe')
     # context.driver = webdriver.Firefox(executable_path="C:\\Users\\omar\\jobeasyinternship\\geckodriver.exe")
     # HEADLESS MODE ####
@@ -73,13 +73,33 @@ def browser_init(context, test_name):
     #         'browserstack_executor: {"action": "setSessionStatus", "arguments": {"status":"failed", "reason": "Title not matched"}}')
     # print(context.driver.title)
     # context.driver.quit(quit)
-    context.driver.maximize_window()
-    context.driver.implicitly_wait(10)
-    context.driver.wait = WebDriverWait(context.driver, 10)
+    # Mobile emulation
+    # mobile_emulation = {"deviceName": "Nexus 5"}
+    #
+    # chrome_options = webdriver.ChromeOptions()
+    #
+    # chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+    #
+    # context.driver = webdriver.Remote(command_executor='http://69.254.188.71/16:80', # 127.0.0.1:4444/wd/hub',
+    #
+    #                                   desired_capabilities=chrome_options.to_capabilities())
+    # context.driver.maximize_window()
+    # context.driver.implicitly_wait(10)
+    # context.driver.wait = WebDriverWait(context.driver, 10)
+    #
 
+
+    mobile_emulation = {
+
+   "deviceMetrics": { "width": 360, "height": 640, "pixelRatio": 3.0 },
+
+   "userAgent": "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19" }
+
+    chrome_options = Options()
+
+    chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+    context.driver = webdriver.Chrome(chrome_options = chrome_options)
     context.app = Applications(context.driver)
-
-
 # def before_scenario(context, scenario):
 #     context.driver.logger.info(f'\nStarted scenario: {scenario.name}')
 #     browser_init(context, scenario.name)
@@ -97,8 +117,8 @@ def browser_init(context, test_name):
 # def after_scenario(context, feature):
 #     context.driver.delete_all_cookies()
 #     context.driver.quit()
-#
-#
+
+
 def before_scenario(context, scenario):
     print('\nStarted scenario: ', scenario.name)
     browser_init(context, scenario.name)
